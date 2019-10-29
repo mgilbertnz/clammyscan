@@ -248,7 +248,7 @@ class ClammyScanParser @Inject()(
   )(implicit ec: ExecutionContext): ClamParser[A] = {
     bodyParsers
       .multipartFormData[ScannedBody[A]] {
-        case FileInfo(partName, filename, contentType) =>
+        case FileInfo(partName, filename, contentType, _) =>
           val (clamSink, saveSink) = sinks(filename, contentType)(save)
           val comb                 = broadcastGraph(clamSink, saveSink)
 

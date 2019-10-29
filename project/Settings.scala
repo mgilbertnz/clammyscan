@@ -24,12 +24,12 @@ object Settings {
     "-language:postfixOps"
   )
 
-  val ScalaVersion = "2.12.7"
+  val ScalaVersion = "2.12.10"
 
   val BaseSettings = Seq(
     scalaVersion := ScalaVersion,
     scalacOptions := ScalacOpts,
-    organization := "net.scalytica",
+    organization := "com.mattgilbert",
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     scalacOptions in Test ++= Seq("-Yrangepos"),
     logBuffered in Test := false,
@@ -46,10 +46,10 @@ object Settings {
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomExtra := (
-      <url>https://github.com/kpmeen/clammyscan</url>
+      <url>https://github.com/mgilbertnz/clammyscan</url>
         <scm>
-          <url>git@github.com:kpmeen/clammyscan.git</url>
-          <connection>scm:git:git@github.com:kpmeen/clammyscan.git</connection>
+          <url>git@github.com:mgilbertnz/clammyscan.git</url>
+          <connection>scm:git:git@github.com:mgilbertnz/clammyscan.git</connection>
         </scm>
         <developers>
           <developer>
@@ -59,6 +59,21 @@ object Settings {
           </developer>
         </developers>
     )
+  )
+
+  val FPPublish = Seq(
+    resolvers += "Nexus Releases" at "https://nexus.financialplatforms.co.nz/nexus/content/repositories/releases",
+    resolvers += "Nexus Snapshots" at "https://nexus.financialplatforms.co.nz/nexus/content/repositories/snapshots",
+    publishTo := {
+      val nexus = "https://nexus.financialplatforms.co.nz/nexus/content/repositories/"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "snapshots")
+      else
+        Some("releases" at nexus + "releases")
+    },
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials.fp"),
+    publishMavenStyle := true
   )
 
   def ClammyProject(name: String, folder: Option[String] = None): Project = {

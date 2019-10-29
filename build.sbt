@@ -69,7 +69,7 @@ lazy val streamsLib = ClammyProject("clammyscan-streams", Some("streams-lib"))
     coverageFailOnMinimum := true
   )
   .settings(libraryDependencies ++= AkkaDeps.All ++ TestingDeps.AllNoPlay)
-  .settings(BintrayPublish: _*)
+  .settings(FPPublish: _*)
   .dependsOn(sharedTesting % Test)
 
 lazy val bodyParsers = ClammyProject("clammyscan", Some("bodyparsers"))
@@ -80,7 +80,7 @@ lazy val bodyParsers = ClammyProject("clammyscan", Some("bodyparsers"))
   .settings(
     libraryDependencies ++= PlayDeps.All ++ AkkaDeps.All ++ TestingDeps.All
   )
-  .settings(BintrayPublish: _*)
+  .settings(FPPublish: _*)
   .dependsOn(streamsLib, sharedTesting % Test)
 
 lazy val sample = ClammyProject("sample")
