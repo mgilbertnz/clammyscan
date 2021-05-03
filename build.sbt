@@ -64,19 +64,19 @@ lazy val sharedTesting = ClammyProject("shared-testing")
   )
 
 lazy val streamsLib = ClammyProject("clammyscan-streams", Some("streams-lib"))
-  .settings(
-    coverageMinimum := 80,
-    coverageFailOnMinimum := true
-  )
+//  .settings(
+//    coverageMinimum := 80,
+//    coverageFailOnMinimum := true
+//  )
   .settings(libraryDependencies ++= AkkaDeps.All ++ TestingDeps.AllNoPlay)
   .settings(FPPublish: _*)
   .dependsOn(sharedTesting % Test)
 
 lazy val bodyParsers = ClammyProject("clammyscan", Some("bodyparsers"))
-  .settings(
-    coverageMinimum := 75,
-    coverageFailOnMinimum := true
-  )
+//  .settings(
+//    coverageMinimum := 75,
+//    coverageFailOnMinimum := true
+//  )
   .settings(
     libraryDependencies ++= PlayDeps.All ++ AkkaDeps.All ++ TestingDeps.All
   )
@@ -89,7 +89,7 @@ lazy val sample = ClammyProject("sample")
     routesGenerator := InjectedRoutesGenerator,
     RoutesKeys.routesImport := Seq.empty
   )
-  .settings(coverageEnabled := false)
+//  .settings(coverageEnabled := false)
   .settings(resolvers += Resolver.mavenLocal)
   .settings(NoPublish)
   .settings(

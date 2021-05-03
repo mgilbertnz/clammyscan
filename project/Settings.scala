@@ -13,10 +13,10 @@ object Settings {
     "-explaintypes",
     "-Xfatal-warnings",
     "-Xlint",
-    "-Ywarn-adapted-args",
+//    "-Ywarn-adapted-args",
     "-Ywarn-dead-code",
-    "-Ywarn-inaccessible",
-    "-Ywarn-nullary-override",
+//    "-Ywarn-inaccessible",
+//    "-Ywarn-nullary-override",
     "-Ywarn-numeric-widen",
     "-language:implicitConversions",
     "-language:higherKinds",
@@ -24,17 +24,17 @@ object Settings {
     "-language:postfixOps"
   )
 
-  val ScalaVersion = "2.12.10"
+  val ScalaVersion = "2.13.5"
 
   val BaseSettings = Seq(
     scalaVersion := ScalaVersion,
     scalacOptions := ScalacOpts,
     organization := "com.mattgilbert",
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-    scalacOptions in Test ++= Seq("-Yrangepos"),
-    logBuffered in Test := false,
-    fork in Test := true,
-    javaOptions in Test += "-Dlogger.resource=logback-test.xml"
+    Test / scalacOptions ++= Seq("-Yrangepos"),
+    Test / logBuffered := false,
+    Test / fork := true,
+    Test / javaOptions += "-Dlogger.resource=logback-test.xml"
   )
 
   val NoPublish = Seq(
@@ -44,7 +44,7 @@ object Settings {
 
   val BintrayPublish = Seq(
     publishMavenStyle := true,
-    publishArtifact in Test := false,
+    Test / publishArtifact := false,
     pomExtra := (
       <url>https://github.com/mgilbertnz/clammyscan</url>
         <scm>
@@ -62,10 +62,10 @@ object Settings {
   )
 
   val FPPublish = Seq(
-    resolvers += "Nexus Releases" at "https://nexus.financialplatforms.co.nz/nexus/content/repositories/releases",
-    resolvers += "Nexus Snapshots" at "https://nexus.financialplatforms.co.nz/nexus/content/repositories/snapshots",
+    resolvers += "Nexus Releases" at "https://nexus.financialplatforms.co.nz/repository/releases",
+    resolvers += "Nexus Snapshots" at "https://nexus.financialplatforms.co.nz/repository/snapshots",
     publishTo := {
-      val nexus = "https://nexus.financialplatforms.co.nz/nexus/content/repositories/"
+      val nexus = "https://nexus.financialplatforms.co.nz/repository/"
       if (isSnapshot.value)
         Some("snapshots" at nexus + "snapshots")
       else
